@@ -1,6 +1,28 @@
 # AWS SSM Hybrid Activations Terraform Module 🚀
 
-This module creates an AWS SSM Hybrid Activation. By default, it also creates the required IAM role and policy.
+This Terraform module facilitates the creation and management of **AWS SSM Hybrid Activations**. With it, you can register and manage on-premises servers, instances in other clouds (like Azure or Google Cloud), and even edge devices as if they were native EC2 instances in AWS.
+
+## What is AWS SSM Hybrid Activations?
+
+**AWS Systems Manager (SSM) Hybrid Activations** is a service that allows you to extend the management of AWS Systems Manager to any machine that is not an EC2 instance. This includes:
+
+*   **On-premises servers:** Manage your physical or virtual servers located in your own data center.
+*   **Instances in other clouds:** Monitor and execute commands on VMs from Google Cloud, Azure, etc.
+*   **Edge devices (IoT):** Apply configurations and collect inventory from devices in remote locations.
+
+By registering a machine with a hybrid activation, you can use all the features of Systems Manager, such as **Run Command**, **Patch Manager**, **Session Manager**, and **State Manager**, to automate and manage it centrally.
+
+## What does this module do?
+
+This Terraform module automates the creation of an **SSM Hybrid Activation**, which generates an activation code and an ID. This code is used to register your machines with AWS Systems Manager.
+
+In addition, the module also:
+
+*   **Creates an IAM Role:** By default, it provisions the necessary IAM role (`AmazonSSMManagedInstanceCore`) so that the registered machine has the correct permissions to communicate with the SSM API.
+*   **Allows using an existing IAM Role:** If you already have an IAM role, you can simply disable automatic creation and provide the ARN of your role.
+*   **Configures limits and expiration:** You can define how many machines can use the activation and when it will expire.
+
+In summary, this module simplifies and standardizes the process of onboarding external machines into the AWS ecosystem.
 
 ## Usage 👨‍💻
 
@@ -94,4 +116,3 @@ module "ssm_activation" {
 |------|-------------|
 | activation_id | The ID of the activation. |
 | activation_code | The code to use to activate the instance. |
-
